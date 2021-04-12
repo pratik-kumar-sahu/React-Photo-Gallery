@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { invokeStorage } from "../firebase/config";
+import { invokeStorage, invokeFirestore, timestamp } from "../firebase/config";
 
 const useStorage = (file) => {
   const [progress, setProgress] = useState(null);
@@ -8,7 +8,8 @@ const useStorage = (file) => {
 
   useEffect(() => {
     // storageRef is a reference made in firebase storage using file's name
-    const storageRef = invokeStorage.ref(file.name);
+    const storageRef = invokeStorage.ref(file.name); // for saving images in storage
+    const collectionRef = invokeFirestore.collection("images"); // for storing image url
 
     // now using storageRef, we will monitor and use states (progress, error, url) based on the file is uploaded or not.
     storageRef.put(file).on(
@@ -22,7 +23,9 @@ const useStorage = (file) => {
         setError(err);
       },
       async () => {
-        const url = await storageRef.getDownloadUrl();
+        const url = await storageRef.getDownloadURL();
+        const createdAt = timestamp();
+        collectionRef.add({ url, createdAt });
         setUrl(url);
       }
     );
