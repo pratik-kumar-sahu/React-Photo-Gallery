@@ -1,5 +1,6 @@
 import React from "react";
 import Form from "./comps/Form";
+import ImageGrid from "./comps/ImageGrid";
 import Title from "./comps/Title";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <Title />
       <Form />
+      <ImageGrid />
     </div>
   );
 }
