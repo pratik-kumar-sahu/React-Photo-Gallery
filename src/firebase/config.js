@@ -13,7 +13,7 @@ var firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const fire = firebase.initializeApp(firebaseConfig);
 
 // invoking firestore and storage also
 const invokeFirestore = firebase.firestore();
@@ -21,3 +21,4 @@ const invokeStorage = firebase.storage();
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 export { invokeFirestore, invokeStorage, timestamp };
+export default fire;
